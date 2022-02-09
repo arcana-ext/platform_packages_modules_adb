@@ -72,13 +72,13 @@ static bool should_drop_privileges() {
     //   Allowed to become root, but not necessarily the default. Set to 1 on
     //   eng and userdebug builds.
     //
-    // ro.secure:
-    //   Drop privileges by default. Set to 1 on userdebug and user builds.
-    bool ro_secure = android::base::GetBoolProperty("ro.secure", true);
+    // ro.adb.secure:
+    //   Drop privileges by default. Set to 1 on user.
+    bool ro_adb_secure = android::base::GetBoolProperty("ro.adb.secure", true);
     bool ro_debuggable = __android_log_is_debuggable();
 
-    // Drop privileges if ro.secure is set...
-    bool drop = ro_secure;
+    // Drop privileges if ro.adb.secure is set...
+    bool drop = ro_adb_secure;
 
     // ... except "adb root" lets you keep privileges in a debuggable build.
     std::string prop = android::base::GetProperty("service.adb.root", "");
